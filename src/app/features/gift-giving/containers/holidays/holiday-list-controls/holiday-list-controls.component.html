@@ -1,0 +1,29 @@
+<div class="btn-toolbar"
+     role="toolbar"
+     aria-label="Toolbar with button groups">
+  <div class="btn-group mr-2"
+       role="group"
+       aria-label="First group">
+    <button type="button"
+            [disabled]="model.showingUpComing"
+            class="btn btn-secondary"
+            (click)="showUpcoming()">Show Only Upcoming</button>
+    <button type="button"
+            [disabled]="model.showingAll"
+            class="btn btn-secondary"
+            (click)="showAll()">Show All</button>
+  </div>
+  <div class="btn-group mr-2"
+       role="group"
+       aria-label="Second group">
+    <button type="button"
+            [disabled]="model.sortingByName"
+            class="btn btn-secondary"
+            (click)="sortByName()">Sort By Name</button>
+    <button type="button"
+            [disabled]="model.sortingByDate"
+            class="btn btn-secondary"
+            (click)="sortByDate()">Sort By Date</button>
+  </div>
+
+</div>

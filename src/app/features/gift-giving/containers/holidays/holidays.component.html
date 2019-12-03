@@ -2,4 +2,5 @@
   <h4>Holidays</h4>
 </header>
 <app-holiday-entry></app-holiday-entry>
+<app-holiday-list-controls [model]="holidayListControlsModel$ | async"></app-holiday-list-controls>
 <app-holiday-list [model]="holidayModel$ | async"></app-holiday-list>
