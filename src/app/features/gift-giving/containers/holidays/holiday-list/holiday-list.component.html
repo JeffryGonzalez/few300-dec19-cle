@@ -1,0 +1,7 @@
+<ul class="list-unstyled">
+  <li class="alert alert-info"
+      *ngFor="let holiday of model.holidays">
+    <h5>{{holiday.name}}</h5>
+    <p>On {{holiday.date | date:'longDate'}}</p>
+  </li>
+</ul>
