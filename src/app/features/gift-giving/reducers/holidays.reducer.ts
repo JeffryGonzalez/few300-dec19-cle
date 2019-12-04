@@ -24,7 +24,10 @@ const initialState: HolidayState = {
 
 const reducerFunction = createReducer(
   initialState,
-  on(actions.addHoliday, (state, action) => adapter.addOne(action.payload, state))
+  on(actions.addHoliday, (state, action) => {
+    // action.payload.name = action.payload.name.toUpperCase();
+    return adapter.addOne(action.payload, state);
+  })
 );
 
 export function reducer(state: HolidayState = initialState, action: Action) {

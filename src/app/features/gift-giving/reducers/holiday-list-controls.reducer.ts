@@ -14,6 +14,14 @@ const initialState: HolidayListControlState = {
 
 export function reducer(state: HolidayListControlState = initialState, action: Action) {
   return myReducer(state, action);
+  // switch(action.type) {
+  //   case '[Some Action Type]': {
+  //     return { }; // a new state
+  //   }
+  //   default: {
+  //     return state;
+  //   }
+  // }
 }
 
 const myReducer = createReducer(
@@ -22,4 +30,8 @@ const myReducer = createReducer(
   on(actions.showUpcoming, (state) => ({ ...state, showAll: false })),
   on(actions.sortByDate, (state) => ({ ...state, sortBy: 'date' })),
   on(actions.sortByName, (state) => ({ ...state, sortBy: 'name' }))
+  // on(actions.sortByName, (state) => {
+  //   state.sortBy = name;
+  //   return state;
+  // })
 );

@@ -18,6 +18,7 @@ export class HolidaysComponent implements OnInit {
   ngOnInit() {
     this.holidayModel$ = this.store.select(selectHolidayModel);
     this.holidayListControlsModel$ = this.store.select(selectHolidayListControlsModel);
+
   }
 
 }
