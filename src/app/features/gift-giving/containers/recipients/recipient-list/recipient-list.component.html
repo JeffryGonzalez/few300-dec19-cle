@@ -1,1 +1,16 @@
-<p>recipient-list works!</p>
+<div class="card"
+     *ngFor="let recipient of model">
+  <div class="card-body">
+    <h5 class="card-title">{{recipient.name}}</h5>
+    <p *ngIf="recipient.email"
+       class="card-text">{{recipient.name}} can be contacted at <a
+         href="mailto:{{recipient.email}}">{{recipient.email}}</a></p>
+    <p *ngIf="!recipient.email"
+       class="card-text">No Email Available</p>
+    <em>Holidays:</em>
+    <ul class="list-group">
+      <li *ngFor="let holiday of recipient.holidays"
+          class="list-group-item">{{holiday.description}}</li>
+    </ul>
+  </div>
+</div>

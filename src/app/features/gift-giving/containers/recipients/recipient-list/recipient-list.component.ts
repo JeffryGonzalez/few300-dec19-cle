@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { RecipientListModel } from '../../../models';
 
 @Component({
   selector: 'app-recipient-list',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipientListComponent implements OnInit {
 
+  @Input() model: RecipientListModel[] = [];
   constructor() { }
 
   ngOnInit() {
