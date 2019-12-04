@@ -11,7 +11,9 @@ import { HolidayListComponent } from './containers/holidays/holiday-list/holiday
 import { StoreModule } from '@ngrx/store';
 import { featureName, reducers } from './reducers';
 import { HolidayListControlsComponent } from './containers/holidays/holiday-list-controls/holiday-list-controls.component';
-
+import { RecipientEntryComponent } from './containers/recipients/recipient-entry/recipient-entry.component';
+import { RecipientListComponent } from './containers/recipients/recipient-list/recipient-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   {
     path: 'gift-giving',
@@ -34,11 +36,22 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [GiftGivingComponent, NavComponent, DashboardComponent, RecipientsComponent, HolidaysComponent, HolidayEntryComponent, HolidayListComponent, HolidayListControlsComponent],
+  declarations: [
+    GiftGivingComponent,
+    NavComponent,
+    DashboardComponent,
+    RecipientsComponent,
+    HolidaysComponent,
+    HolidayEntryComponent,
+    HolidayListComponent,
+    HolidayListControlsComponent,
+    RecipientEntryComponent,
+    RecipientListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature(featureName, reducers)
+    StoreModule.forFeature(featureName, reducers),
+    ReactiveFormsModule
   ],
   exports: [GiftGivingComponent]
 

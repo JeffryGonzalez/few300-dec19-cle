@@ -100,7 +100,10 @@ const selectHolidayListSorted = createSelector(
   }
 );
 
-
+export const selectHolidayListModel = createSelector(
+  selectHolidayModelRaw,
+  r => r.holidays // TODO: Think about the filtering and sorting here later.
+);
 
 export const selectHolidayModel = createSelector(
   selectHolidayListSorted,

@@ -2,3 +2,12 @@
 $enable-rounded: false;
 $primary: rgb(72, 150, 240);
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+pre.debug {
+  background-color: black;
+  font-size: 18pt;
+  color: green;
+  padding: 10px;
+  margin: 10px;
+  border: 5px solid red;
+}
