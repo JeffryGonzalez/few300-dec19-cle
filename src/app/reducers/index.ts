@@ -1,12 +1,15 @@
 import * as fromErrors from './errors.reducer';
+import * as fromUser from './user.reducer';
 import { createSelector } from '@ngrx/store';
 
 export interface AppState {
   errors: fromErrors.ErrorState;
+  user: fromUser.UserState;
 }
 
 export const reducers = {
-  errors: fromErrors.reducer
+  errors: fromErrors.reducer,
+  user: fromUser.reducer
 };
 
 // Selectors
@@ -16,6 +19,7 @@ export const reducers = {
 // 2. Selector per branch.
 
 const selectErrorBranch = (state: AppState) => state.errors;
+const selectUserBranch = (state: AppState) => state.user;
 
 // 3. Helpers (optional)
 
@@ -23,6 +27,11 @@ const selectErrorBranch = (state: AppState) => state.errors;
 
 // Hint: You'll need a couple. One to tell if there is an error, the other
 // for the message.
+
+export const selectUserIsAdmin = createSelector(
+  selectUserBranch,
+  u => u.isAdmin
+);
 
 export const selectHasError = createSelector(
   selectErrorBranch,
