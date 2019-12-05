@@ -11,11 +11,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './reducers';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    ErrorDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,14 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class AppEffects {
 
+  // turn addHolidayFailed -> applicationError
+  addHolidayFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(holidayActions.addHolidayFailed),
+      map((x) => appActions.applicationError({ message: x.message, feature: 'Gift Giving' }))
+    )
+  );
+
   // turn applicationstarted into loadHolidays
   loadDataOnAppStart$ = createEffect(() =>
     this.actions$.pipe(
