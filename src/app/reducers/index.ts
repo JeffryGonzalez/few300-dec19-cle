@@ -1,4 +1,5 @@
 import * as fromErrors from './errors.reducer';
+import { createSelector } from '@ngrx/store';
 
 export interface AppState {
   errors: fromErrors.ErrorState;
@@ -22,3 +23,13 @@ const selectErrorBranch = (state: AppState) => state.errors;
 
 // Hint: You'll need a couple. One to tell if there is an error, the other
 // for the message.
+
+export const selectHasError = createSelector(
+  selectErrorBranch,
+  b => b.hasError
+);
+
+export const selectErrorMessage = createSelector(
+  selectErrorBranch,
+  b => b.errorMessage
+);

@@ -1,1 +1,7 @@
-<p>error-display works!</p>
+<div class="alert alert-danger">
+  <h5>{{message}}</h5>
+  <input type="button"
+         class="btn btn-sm btn-danger"
+         value="X"
+         (click)="clearError()">
+</div>
