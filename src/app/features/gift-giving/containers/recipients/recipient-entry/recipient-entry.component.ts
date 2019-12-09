@@ -31,10 +31,10 @@ export class RecipientEntryComponent implements OnInit, OnDestroy {
     });
 
   }
-
-  ngOnDestroy() {
-    this.changesSub.unsubscribe();
+  ngOnInit() {
+    this.createCheckboxes();
   }
+
   createCheckboxes() {
     this.holidays.forEach((holiday, index) => {
       const control = new FormControl();
@@ -42,9 +42,6 @@ export class RecipientEntryComponent implements OnInit, OnDestroy {
         control
       );
     });
-  }
-  ngOnInit() {
-    this.createCheckboxes();
   }
 
   submit(focusme: HTMLInputElement) {
@@ -57,6 +54,9 @@ export class RecipientEntryComponent implements OnInit, OnDestroy {
     this.store.dispatch(actions.recipientAdded({ name, email, selectedHolidayIds }));
     focusme.focus();
     this.form.reset();
+  }
+  ngOnDestroy() {
+    this.changesSub.unsubscribe();
   }
 }
 

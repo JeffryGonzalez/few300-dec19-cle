@@ -12,6 +12,23 @@ export class RecipientEffects {
 
   constructor(private client: HttpClient, private actions$: Actions) { }
 
+  saveRecipient$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(recipientActions.recipientAdded),
+      switchMap((original) => this.client.post<RecipientEntity>(this.baseUrl, original.payload)
+        .pipe(
+          map(r => recipientActions.recipientAddedSuccessfully({ oldId: original.payload.id, payload: r }))
+        )
+      )
+    )
+  );
+
+  saveRecipientHolidays$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(recipientActions.recipientAddedSuccessfully),
+      switchMap((a) => this.client.put(`${this.baseUrl}/${a.payload.id}/holidays`, a.payload.selectedHolidayIds))
+    ), { dispatch: false }
+  );
 
   loadData$ = createEffect(() =>
     this.actions$.pipe(

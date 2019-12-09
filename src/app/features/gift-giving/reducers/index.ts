@@ -7,6 +7,7 @@ import * as fromRecipientModels from '../models/recipients';
 import * as fromHolidayListControlModels from '../models/list-controls';
 import * as moment from 'moment';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
+import { DashboardModel } from '../models';
 
 
 export interface GiftGivingState {
@@ -33,7 +34,12 @@ const selectHolidayListControlsBranch = createSelector(selectGiftFeature, g => g
 const selectRecipientBranch = createSelector(selectGiftFeature, g => g.recipients);
 // 3. Helpers
 const { selectAll: selectHolidayArray, selectEntities: selectHolidayEntities } = fromHolidays.adapter.getSelectors(selectHolidaysBranch);
-const { selectAll: selectRecipientArray } = fromRecipients.adapter.getSelectors(selectRecipientBranch);
+
+const {
+  selectAll: selectRecipientArray,
+  selectEntities: selectRecipientEntities
+} = fromRecipients.adapter.getSelectors(selectRecipientBranch);
+
 const selectShowAll = createSelector(
   selectHolidayListControlsBranch,
   b => b.showAll
@@ -54,6 +60,8 @@ const selectHolidayModelRaw = createSelector(
     } as fromHolidayModels.HolidaysModel;
   }
 );
+
+
 
 const selectHolidayModelFiltered = createSelector(
   selectHolidayModelRaw,
@@ -153,3 +161,45 @@ function makeHolidayThing(h: fromHolidays.HolidayEntity) {
     description: h.name + ' (' + moment(h.date).format('MMMM Do, YYYY') + ')'
   };
 }
+
+
+export const selectDashboardModel = createSelector(
+  selectHolidayModelRaw,
+  selectRecipientModel,
+  (holiday, recipients) => {
+    const upcomingSortedHolidays = [...holiday.holidays.filter(h => new Date(h.date) >= new Date()).sort((lhs, rhs) => {
+      if (new Date(lhs.date) > new Date(rhs.date)) {
+        return 1;
+      }
+      if (new Date(lhs.date) < new Date(rhs.date)) {
+        return 1;
+      }
+      return 0;
+
+    })];
+    console.log(upcomingSortedHolidays);
+    return upcomingSortedHolidays.map(h => ({
+      holidayId: h.id,
+      holidayName: h.name + ' (' + moment(h.date).format('MMMM Do, YYYY') + ')',
+      recipients: getRecipientsForHoliday(h.id, recipients)
+    } as DashboardModel));
+
+  }
+);
+
+
+// Given a holiday, and all the recipients, which recipients celebrate that holiday?
+function getRecipientsForHoliday(holidayId: string, recipients: fromRecipientModels.RecipientListModel[]) {
+  const recipientsCelebratingThatHoliday = recipients.filter(r => r.holidays.some(h => h.id === holidayId));
+  return recipientsCelebratingThatHoliday.map(r => ({ id: r.id, name: r.name }));
+}
+/*
+export interface DashboardModel {
+  holidayId: string;
+  holidayName: string;
+  recipients: {
+    id: string;
+    name: string;
+  }[];
+}
+*/

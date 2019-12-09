@@ -14,6 +14,11 @@ export const recipientAdded = createAction(
   })
 );
 
+export const recipientAddedSuccessfully = createAction(
+  '[gift giving] recipient added successfully',
+  props<{ oldId: string, payload: RecipientEntity }>()
+);
+
 export const loadRecipientData = createAction(
   '[gift giving] load recipient data'
 );
@@ -22,3 +27,5 @@ export const loadRecipientDataSuccess = createAction(
   '[gift giving] loading recipient data succeeded',
   props<{ payload: RecipientEntity[] }>()
 );
+
+
