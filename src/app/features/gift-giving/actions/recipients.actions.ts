@@ -1,4 +1,5 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { RecipientEntity } from '../reducers/recipients.reducer';
 
 let currentId = 1;
 export const recipientAdded = createAction(
@@ -11,4 +12,13 @@ export const recipientAdded = createAction(
       selectedHolidayIds
     }
   })
+);
+
+export const loadRecipientData = createAction(
+  '[gift giving] load recipient data'
+);
+
+export const loadRecipientDataSuccess = createAction(
+  '[gift giving] loading recipient data succeeded',
+  props<{ payload: RecipientEntity[] }>()
 );

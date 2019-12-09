@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as appActions from '../../../actions/app.actions';
 import * as holidayActions from '../actions/holidays.actions';
+import * as recipientActions from '../actions/recipients.actions';
 import { map } from 'rxjs/operators';
 @Injectable()
 export class AppEffects {
@@ -15,12 +16,18 @@ export class AppEffects {
   );
 
   // turn applicationstarted into loadHolidays
-  loadDataOnAppStart$ = createEffect(() =>
+  loadHolidayDataOnAppStart$ = createEffect(() =>
     this.actions$.pipe(
       ofType(appActions.applicationStarted),
       map(() => holidayActions.loadHolidays())
     )
   );
 
+  loadRecipientDataOnStartup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(appActions.applicationStarted),
+      map(() => recipientActions.loadRecipientData())
+    )
+  );
   constructor(private actions$: Actions) { }
 }
