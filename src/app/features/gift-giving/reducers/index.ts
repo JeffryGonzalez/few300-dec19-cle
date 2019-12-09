@@ -5,6 +5,7 @@ import * as fromHolidayListControl from './holiday-list-controls.reducer';
 import * as fromHolidayModels from '../models/holidays';
 import * as fromRecipientModels from '../models/recipients';
 import * as fromHolidayListControlModels from '../models/list-controls';
+import * as fromLoading from './loading.reducer';
 import * as moment from 'moment';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { DashboardModel } from '../models';
@@ -14,13 +15,15 @@ export interface GiftGivingState {
   holidays: fromHolidays.HolidayState;
   holidayListControls: fromHolidayListControl.HolidayListControlState;
   recipients: fromRecipients.RecipientState;
+  loading: fromLoading.LoadingState;
 }
 
 
 export const reducers: ActionReducerMap<GiftGivingState> = {
   holidays: fromHolidays.reducer,
   holidayListControls: fromHolidayListControl.reducer,
-  recipients: fromRecipients.reducer
+  recipients: fromRecipients.reducer,
+  loading: fromLoading.reducer
 };
 
 
@@ -32,7 +35,10 @@ const selectGiftFeature = createFeatureSelector<GiftGivingState>(featureName);
 const selectHolidaysBranch = createSelector(selectGiftFeature, g => g.holidays);
 const selectHolidayListControlsBranch = createSelector(selectGiftFeature, g => g.holidayListControls);
 const selectRecipientBranch = createSelector(selectGiftFeature, g => g.recipients);
+const selectLoadingBranch = createSelector(selectGiftFeature, g => g.loading);
 // 3. Helpers
+const selectHolidaysLoaded = createSelector(selectLoadingBranch, b => b.holidaysLoaded);
+const selectRecipientsLoaded = createSelector(selectLoadingBranch, b => b.recipientsLoaded);
 const { selectAll: selectHolidayArray, selectEntities: selectHolidayEntities } = fromHolidays.adapter.getSelectors(selectHolidaysBranch);
 
 const {
@@ -50,6 +56,11 @@ const selectSortBy = createSelector(
 );
 // 4. For the Components
 
+export const selectFeatureLoaded = createSelector(
+  selectHolidaysLoaded,
+  selectRecipientsLoaded,
+  (h, r) => h && r
+);
 // 4.a. We need one that returns a holiday model.
 
 const selectHolidayModelRaw = createSelector(

@@ -1,5 +1,6 @@
 import * as fromErrors from './errors.reducer';
 import * as fromUser from './user.reducer';
+
 import { createSelector } from '@ngrx/store';
 
 export interface AppState {
@@ -9,7 +10,7 @@ export interface AppState {
 
 export const reducers = {
   errors: fromErrors.reducer,
-  user: fromUser.reducer
+  user: fromUser.reducer,
 };
 
 // Selectors
@@ -20,6 +21,7 @@ export const reducers = {
 
 const selectErrorBranch = (state: AppState) => state.errors;
 const selectUserBranch = (state: AppState) => state.user;
+
 
 // 3. Helpers (optional)
 
